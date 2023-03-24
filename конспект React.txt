@@ -1,0 +1,25 @@
+Сборка проекта начинается с команди:
+npx create-react-app my-app
+cd my-app
+npm start
+
+Далее для роботи с препроцесором SASS необхідно додати библиотеку
+npm i sass --save
+
+Заново запускаем сервер
+npm start
+Теперь замість css можна використовувати scss 
+
+Стили в реакт
+Технологія SCC in JS  її представитель Styled Component
+https://styled-components.com/
+
+Готові компонети со стилями
+Bootstrap
+Наприклад:
+React Bootstrap
+https://react-bootstrap.github.io/getting-started/introduction
+npm install react-bootstrap bootstrap --save
+
+Ще одна библиека
+https://mui.com/
