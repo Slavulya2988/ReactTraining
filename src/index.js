@@ -19,8 +19,8 @@ root.render(
   <React.StrictMode>
 
     <App />
-
     <BigButton as="a">Import Styled Component</BigButton>
     <BootstrapTest />
+
   </React.StrictMode>
 );

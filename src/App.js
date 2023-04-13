@@ -1,13 +1,13 @@
-import { Component } from 'react';
-import styled from 'styled-components'
-
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import BootstrapElement from './bootstrapElement';
 
 const Header = styled.h2`
   font-size: 1.5em;
 `
 // Створення Styled Component
 const Wrapper = styled.div`
-  width: 600px;
+  width: 800px;
   margin: 80px auto 0 auto;
 `;
 export const Button = styled.button`
@@ -27,6 +27,22 @@ const EmpItem = styled.div`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2)
 
 `;
+
+const DynamicGreating = (props) => {
+  return (
+    <div className={'mb-3 p-3 border border-' + props.color}>
+      {/* {props.children} */}
+      {
+        React.Children.map(props.children, (child) => {
+          return (
+            React.cloneElement(child, { className: 'shadow p-3 m-3 border rounded' })
+          )
+        })
+      }
+    </div>
+  )
+}
+
 
 // прилкад створення компонента у вигляді класу
 // class Field extends Component {
@@ -117,26 +133,26 @@ class WhoIAmClass extends Component {
     const { name, surname, link } = this.props;
     const { age, position } = this.state;
     return (
-      <Wrapper>
-        <EmpItem>
-          <h2>Реалізація на класах</h2>
-          <Button onClick={this.nextYear}>+++</Button>
-          <h2>My name is {name},
-            surname - {surname},
-            my age - {age},
-            my position -  {position}
-          </h2>
-          <a href={link}>My profile</a>
-          <form>
-            <span>Введить свою посаду</span>
-            <input type="text" onChange={(e) => this.onCommitInput(e, 'Хованки')} />
-          </form>
-        </EmpItem>
-      </Wrapper>
+
+
+      <EmpItem>
+        <h2>Реалізація на класах</h2>
+        <Button onClick={this.nextYear}>+++</Button>
+        <h2>My name is {name},
+          surname - {surname},
+          my age - {age},
+          my position -  {position}
+        </h2>
+        <a href={link}>My profile</a>
+        <form>
+          <span>Введить свою посаду</span>
+          <input type="text" onChange={(e) => this.onCommitInput(e, 'Хованки')} />
+        </form>
+      </EmpItem>
+
     )
   }
 }
-
 
 // в якості пропсів можна передавати будь що
 // у прикладі name - просто строка
@@ -145,13 +161,30 @@ class WhoIAmClass extends Component {
 function App() {
   return (
     <div className="App">
+      <Wrapper>
+
+        <BootstrapElement
+          left={
+            <DynamicGreating color={'primary'}>
+              <h2>DynamicGreating</h2>
+              <h2>Hello world!</h2>
+            </DynamicGreating>
+          }
+          right={
+            <DynamicGreating color={'primary'}>
+              <h2>Dynamic</h2>
+
+            </DynamicGreating>
+          }
+        />
+        <WhoIAmClass name='Olena' surname='Class' link='https://ru.reactjs.org/docs/state-and-lifecycle.html' />
+        <WhoIAmClass name='Victor' surname='Classnenko' link='https://ru.reactjs.org/docs/state-and-lifecycle.html' />
+      </Wrapper>
       {/* <Field />
       <Btn />
       <WhoIAm name='Olena' surname={{ secondName: 'Beatu' }} link={() => { return 'google.com' }} />
       <WhoIAm name='Danya' surname={{ secondName: 'Strong' }} link={() => { return 'google.com' }} /> */}
-      <WhoIAmClass name='Olena' surname='Class' link='https://ru.reactjs.org/docs/state-and-lifecycle.html' />
-      <WhoIAmClass name='Victor' surname='Classnenko' link='https://ru.reactjs.org/docs/state-and-lifecycle.html' />
-      {/* <div className='buttonGr'><Button>Styled Component</Button></div> */}
+
     </div>
   );
 }
