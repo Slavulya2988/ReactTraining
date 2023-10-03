@@ -46,7 +46,7 @@ class  WhoAmI extends Component  {
     }
 
 }
-//( {name, surname, link}) =>
+
 const hrefForLink = () => {
     return "google.com"
 }
@@ -64,6 +64,3 @@ function  App() {
 ;
 
 export default App;
-
-// props - це обєкт
-// в якості пропса може бути: строка, обєкт або функція

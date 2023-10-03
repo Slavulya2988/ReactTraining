@@ -24,6 +24,31 @@
   color: white;
 }
 
+.wrapper{
+
+  width: 600px;
+  margin: 80px auto 0 auto;
+}
+
+.header {
+  font-size: 1.5em;
+}
+
+.item{
+  padding: 20px;
+margin-bottom: 15px;
+border-radius: 5px;
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2)
+}
+
+.button{
+  display: block;
+  padding: 5px 15px;
+  background: gold;
+  border: 1px solid rgba(0,0,0, 0.2);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
 .App-link {
   color: #61dafb;
 }

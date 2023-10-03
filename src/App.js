@@ -1,65 +1,74 @@
-// Поля классов и static
-// создание свойств без конструктора
-
-import { Component } from 'react';
+import React, {Component} from 'react';
+import {Container} from 'react-bootstrap';
+import  ReactDOM  from 'react-dom';
 import './App.css';
 
-
-class  WhoAmI extends Component  {
-    // було так
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         age: 27,
-    //         text_next: '+++'
-    //     }
-    // }
-    //стало так: синтаксис полей класса - без конструктора
+class Form extends Component {
     state = {
-                age: 27
-            }
+        advOp: false
+    }
 
-// варіант зміни состояния з учетом попереднього state
-    prevYear = () => {
-        this.setState( ({age}) => ({
-            age: age  - 1
+    componentDidMount() {
+        setTimeout(this.handleClick, 3000);
+    }
+
+    handleClick = () =>{
+        this.setState(({advOp}) => ({
+            advOp: !advOp
         }))
     }
-// использование ключевого слова static
-// использование метода без создания екземпляра класса називается статическим методом
-   static onLog = () => {
-        console.log('static metod')
-    }
-// поля классов дозовляют создавать не только методи но і свойства, когда для целого класса может бить одно свойство
-    static logged = 'on';
 
-    render(){
-        const {name,  surname, link} = this.props;
-        const {age} = this.state;
-        return(
-            <div>
-                <button onClick={this.prevYear}>---</button>
-                <h2>My name is - {name}, surname - {surname}, my age - {age}</h2>
-                <a href={link}>Мой профіль</a>
-            </div>
+    render() {
+        return (
+            <Container>
+                <form className="w-50 border mt-5 p-3 m-auto"
+                    onClick={this.handleClick}
+                style={{'overflow': 'hidden',
+                        'position': 'relative'}}>
+                    <div className="mb-3">
+                        <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+                        <input  type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    {
+                        this.state.advOp ?
+                        <Portal>
+                            <Msg/>
+                        </Portal> : null
+                    }
+                </form>
+            </Container>
         )
     }
-
 }
 
+const Portal = (props) => {
+    const node = document.createElement('div');
+    document.body.appendChild(node);
+    return ReactDOM.createPortal(props.children, node);
+}
 
-function  App() {
+const Msg = () => {
    return(
-    <div className='App'>
-        <WhoAmI name =  'Lena' surname = 'Khomenko' link = 'google.com'/>
-        <WhoAmI name =  'Alex' surname = 'shepard' link = 'google.com'/>
+    <div
+    style={{'width': '500px',
+            'height': '150px',
+            'backgroundColor': 'red',
+            'position': 'absolute',
+            'right': '0',
+            'bottom': '0'}}>
+        Hello
     </div>
-
-
    )
 }
-;
 
-WhoAmI.onLog();
-console.log(WhoAmI.logged);
+function App() {
+    return (
+        <Form/>
+    );
+}
+
 export default App;
