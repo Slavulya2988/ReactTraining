@@ -1,3 +1,5 @@
+// Использование рендер-пропа для сквозных задач
+// Например, следующий компонент отслеживает положение мыши в приложении:
 import {Component}  from 'react';
 import CatImg from './img/cat.jpg';
 class Cat extends Component {
