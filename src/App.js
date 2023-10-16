@@ -1,72 +1,53 @@
-// Использование хука состояния - useEffect
-// Что же делает useEffect? Используя этот хук, вы говорите React сделать что-то после рендера. React запомнит функцию (то есть «эффект»), которую вы передали и вызовет её после того, как внесёт все изменения в DOM
+// хук useRef
 
-// Почему же мы вызываем useEffect непосредственно внутри компонента? Это даёт нам доступ к переменной состояния
-
-// Выполняется ли useEffect после каждого рендера? Разумеется! По умолчанию он будет выполняться после каждого рендера и обновления.
-
-
-import {useState, useEffect} from 'react';
+import {useRef, useState, useEffect}  from 'react';
 import {Container} from 'react-bootstrap';
-import './App.css';
 
 
-const Slider = (props) => {
+const Form = () => {
 
-    const [slide, setSlide] = useState(0);
-    const [autoplay, setAutoPlay] = useState(false);
+    const [text, setText] = useState('');
+    const myRef = useRef(null);//создает обїект у которого есть свойство current
+    useEffect(() => {
+        myRef.current = text;
+    })
 
-    function loggin(){
-        console.log('log!')
-    }
 
-    useEffect(()=> {
-        console.log('effect');
-        document.title = `Slide: ${slide}`;
 
-        window.addEventListener('click', loggin);
-
-     return () => {
-        window.removeEventListener('click', loggin);
-     }
-
-    }, [slide]);
-
-    const toggleAutoplay = () => {
-        setAutoPlay(autoplay => !autoplay)
-    }
+    // const focusFirstTI = () =>{
+    //     myRef.current.focus();
+    // }
 
     return (
-        <Container>
-            <div className="slider w-50 m-auto">
-                <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
-                <div className="text-center mt-5">Active slide {slide} <br/> {autoplay ? 'auto' : null}</div>
-                <div className="buttons mt-3">
-                    <button
-                        className="btn btn-primary me-2"
-                        onClick={() => setSlide(slide => slide - 1)}>-1</button>
-                    <button
-                        className="btn btn-primary me-2"
-                        onClick={() => setSlide(slide => slide + 1)}>+1</button>
-                    <button
-                        className="btn btn-primary me-2"
-                        onClick={ toggleAutoplay}>toggle autoplay</button>
+        <Container  /* onClick={(e) => console.log(e.target)} */>
+            <form className="w-50 border mt-5 p-3 m-auto">
+                <div className="mb-3">
+                    <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+                    <input
+                        // ref={myRef}
+                        onChange={(e) => setText(e.target.value)}
+                        type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+                    </div>
+                    <div className="mb-3">
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                    <textarea
+                        // onClick={focusFirstTI}
+                        value = {myRef.current}
+                        className="form-control"
+                        id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-            </div>
+            </form>
         </Container>
+
     )
+
+
 }
 
-
 function App() {
-
-    const [slider, setSlaider] = useState(true);
-  return (
-        <>
-        <button onClick={() => setSlaider(!slider)}>Click me</button>
-        {slider ? <Slider/> : null}
-        </>
-  );
+    return (
+        <Form/>
+    );
 }
 
 export default App;
