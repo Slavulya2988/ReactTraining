@@ -5,7 +5,7 @@ import dataContext from "./context";
 const InputComponent = () => {
 
     const context = useContext(dataContext);
-    console.log(context);
+    //console.log(context);
     return(
         <input
             value={context.mail}
