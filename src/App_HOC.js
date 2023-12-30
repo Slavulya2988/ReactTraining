@@ -37,7 +37,6 @@ const getDataFromFirstFetch = () => {return 10};
 const getDataFromSecondFetch = () => {return 20};
 
 const SliderFirst = (props) => {
-
     return (
         <Container>
             <div className="slider w-50 m-auto">
@@ -78,30 +77,13 @@ const SliderSecond = (props) => {
         </Container>
     )
 }
-// визов компонента с логикой HOC
+
 const SliderWithFirstFetch = withSlider(SliderFirst, getDataFromFirstFetch);
 const SliderWithSecondFetch = withSlider(SliderSecond, getDataFromSecondFetch);
-
-const Hello = () =>{
-    return(
-        <h1>Hello</h1>
-    )
-}
-
-const withLogger = WrapperedComponent => props => {
-    useEffect(() => {
-        console.log('first render')
-    }, [])
-
-    return <WrapperedComponent {...props}/>
-}
-
-const HelloWithLogger = withLogger(Hello);
 
 function App() {
     return (
         <>
-            <HelloWithLogger/>
             <SliderWithFirstFetch/>
             <SliderWithSecondFetch/>
         </>
